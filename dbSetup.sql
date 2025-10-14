@@ -13,16 +13,18 @@ CREATE TABLE chores (
     name VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
     difficulty TINYINT NOT NULL,
-    is_complete BOOLEAN NOT NULL
+    isComplete BOOLEAN NOT NULL
     -- make sure to not have a comma on the last line of a table creation
 )
+
+DROP TABLE chores;
 -- here i have set up a table for my chores with the columns id, name, description, difficulty, and is_complete, I have also used the Insert INTO statement to add 5 chores to the table as well as created some select statements to view the data in different ways;
 INSERT INTO
     chores (
         name,
         description,
         difficulty,
-        is_complete
+        isComplete
     )
 VALUES (
         'Wash Dishes',
@@ -67,3 +69,5 @@ ORDER BY difficulty DESC;
 
 SELECT * FROM chores WHERE id = 3;
 -- This select statement will show the chore with an id of 3
+
+DESCRIBE chores;

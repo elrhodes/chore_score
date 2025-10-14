@@ -18,4 +18,26 @@ public class ChoresRepository
         List<Chore> chores = _db.Query<Chore>(sql).ToList();
         return chores;
     }
+
+    public Chore CreateChore(Chore choreData)
+    {
+        string sql = @"
+        INSERT INTO chores
+        (name, description, difficulty, isComplete)
+        VALUES
+        (@Name, @Description, @Difficulty, @IsComplete);
+        SELECT * FROM chores WHERE id = LAST_INSERT_ID();";
+        Chore chore = _db.Query<Chore>(sql, choreData).SingleOrDefault();
+        return chore;
+    }
+    public void DeleteChore(int choreId)
+    {
+        string sql = "DELETE FROM chores WHERE id = @choreId LIMIT 1;";
+        object paramObject = new { ChoreId = choreId };
+        int rowsAffected = _db.Execute(sql, paramObject);
+        if (rowsAffected != 1)
+        {
+            throw new Exception("Could not delete chore");
+        }
+    }
 }

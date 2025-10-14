@@ -44,4 +44,33 @@ public class ChoresController : ControllerBase
             // if you are getting an error saying `BadRequest` isn't available, that means your controller doesn't inherit from ControllerBase!
         }
     }
+
+    [HttpPost]
+    public ActionResult<Chore> CreateChore([FromBody] Chore choreData)
+    {
+        try
+        {
+            Chore newChore = _choresService.CreateChore(choreData);
+            return Ok(newChore);
+            // return Ok() is a 200 status code, which means everything is good
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpDelete("{choreId}")]
+    public ActionResult<string> DeleteChore(int choreId)
+    {
+        try
+        {
+            _choresService.DeleteChore(choreId);
+            return Ok("Chore Deleted");
+            // return Ok() is a 200 status code, which means everything is good
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
 }
