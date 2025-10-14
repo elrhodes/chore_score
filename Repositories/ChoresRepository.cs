@@ -40,4 +40,22 @@ public class ChoresRepository
             throw new Exception("Could not delete chore");
         }
     }
+    public Chore UpdateChore(Chore choreData)
+    {
+        string sql = @"
+        UPDATE chores
+        SET
+            name = @Name,
+            description = @Description,
+            difficulty = @Difficulty,
+            isComplete = @IsComplete
+        WHERE id = @Id;
+        SELECT * FROM chores WHERE id = @Id;";
+        Chore chore = _db.Query<Chore>(sql, choreData).SingleOrDefault();
+        if (chore == null)
+        {
+            throw new Exception("Could not update chore");
+        }
+        return chore;
+    }
 }

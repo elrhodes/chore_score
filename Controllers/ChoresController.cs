@@ -73,4 +73,18 @@ public class ChoresController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    [HttpPut("{choreId}")]
+    public ActionResult<Chore> UpdateChore(int choreId, [FromBody] Chore choreData)
+    {
+        try
+        {
+            Chore updatedChore = _choresService.UpdateChore(choreId, choreData);
+            return Ok(updatedChore);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
 }

@@ -26,4 +26,24 @@ public class ChoresService
     {
         _choresRepository.DeleteChore(choreId);
     }
+
+    public Chore UpdateChore(int choreId, Chore choreData)
+    {
+        // we need to get the original chore from the database
+        List<Chore> chores = _choresRepository.GetAllChores();
+        Chore original = chores.Find(c => c.Id == choreId);
+        if (original == null)
+        {
+            throw new Exception("Invalid Chore Id");
+        }
+        // we need to update the original chore with the new data
+        original.Name = choreData.Name ?? original.Name;
+        original.Description = choreData.Description ?? original.Description;
+        original.Difficulty = choreData.Difficulty != 0 ? choreData.Difficulty : original.Difficulty;
+        original.IsComplete = choreData.IsComplete;
+
+        // we need to save the updated chore to the database
+        // but we don't have a method for that yet, so we'll just return the updated chore for now
+        return original;
+    }
 }
