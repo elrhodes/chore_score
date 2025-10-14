@@ -3,18 +3,9 @@ namespace chore_score.Repositories;
 
 public class ChoresRepository
 {
-    // the repository needs a database connection
-    private readonly IDbConnection _db;
-
-    public ChoresRepository(IDbConnection db)
+    public List<Chore> GetAllChores()
     {
-        _db = db;
-    }
-
-    internal List<Chore> GetAllChores()
-    {
-        string sql = "SELECT * FROM chores;";
-        List<Chore> chores = _db.Query<Chore>(sql).ToList();
+        List<Chore> chores = [];
         return chores;
     }
 }
